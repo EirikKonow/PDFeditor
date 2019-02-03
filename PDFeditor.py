@@ -4,6 +4,8 @@ import os
 import pdfrw
 import math
 from pprint import pprint
+from classSpells import classSpells
+from classSpells import calc_xp2lvl
 
 
 INVOICE_TEMPLATE_PATH = 'inPDF_fixed.pdf'
@@ -99,6 +101,7 @@ INT = 11
 WIS = 11
 CHA = 14
 charRace = "Dwarf(Hill)"
+exp = 48000
 
 
 def calcStatmod(stat):
@@ -159,9 +162,11 @@ for key in data_dict:
     data_dict[key] = calcStatmod(eval(str(data_dict[key[0:3]])))
 
 
-def add_ProfBonus(data_dict):
-  data_dict["ProfBonus"] = 2
-  return data_dict
+def add_ProfBonus(data_dict, exp):
+	bonus = 2
+	bonus = 2 + math.floor(((calc_xp2lvl(exp)+3)/4)-1)
+	data_dict["ProfBonus"] = bonus
+	return data_dict
 
 def add_CheckBoxDict(charClass, charBackground, data_dict):
   box_keys = [
@@ -262,15 +267,17 @@ def add_skills(data_dict):
         pass
   return data_dict
 
+ # dictionary for different classes
 
-def calcRogue(stats):
+
+def calcRogue(stats, exp):
   charClass = "Rogue"
 
   charBackground = "Folk Hero"
 
   charRace = "Dwarf(Hill)"
 
-  data_dict = add_ProfBonus(stats)
+  data_dict = add_ProfBonus(stats, exp)
 
   data_dict = add_CheckBoxDict(charClass, charBackground, data_dict)
 
@@ -278,11 +285,19 @@ def calcRogue(stats):
 
   data_dict = add_skills(data_dict)
 
+  data_dict = classSpells(exp, charClass, data_dict)
+
+  data_dict["ClassLevel"] = "{}, {}".format(charClass, calc_xp2lvl(exp))
+
+  data_dict["XP"] = exp
+
+  data_dict["Race"] = charRace
+
   return data_dict
 
 
 
 if __name__ == '__main__':
-  data_dict = calcRogue(data_dict)
+  data_dict = calcRogue(data_dict, exp)
   print(data_dict)
   write_fillable_pdf(INVOICE_TEMPLATE_PATH, INVOICE_OUTPUT_PATH, data_dict)

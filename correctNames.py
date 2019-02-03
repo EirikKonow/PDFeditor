@@ -128,4 +128,4 @@ def print_annotation_values(input_pdf_path, data_dict):
                   print("#"*30)
 
 write_fillable_pdf(INVOICE_TEMPLATE_PATH, INVOICE_OUTPUT_PATH, box_dict)
-print_annotation_values(INVOICE_OUTPUT_PATH, box_dict)
+print_annotation_values("outPDF.pdf", box_dict)
