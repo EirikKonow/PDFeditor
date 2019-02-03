@@ -101,7 +101,7 @@ INT = 11
 WIS = 11
 CHA = 14
 charRace = "Dwarf(Hill)"
-exp = 48000
+exp = 900
 
 
 def calcStatmod(stat):

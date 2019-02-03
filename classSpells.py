@@ -1,11 +1,18 @@
 # dictionary for different classes
 import math
 
-def classSpells(exp, charClass, data_dict):
-	if charClass == "Rogue":
-		data_dict["Features and Traits"] = """Sneak Attack:
+def classSpells(exp, charClass, data_dict, verbose=False):
+	if verbose:
+				text_sneak_attack="""Sneak Attack:
 Once per turn, you can deal an extra {} damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or a ranged weapon. You don't need advantage on the attack roll if another enemy of the target is within 5 feet of it, that enemy isn't incapacitated, and you don't have disadvantage on the attack roll.
 """.format(calc_sneak_attack(exp))
+
+	else:
+		text_sneak_attack="Sneak Attack({})".format(calc_sneak_attack(exp))
+
+	if charClass == "Rogue":
+		data_dict["Features and Traits"] = text_sneak_attack
+
 
 	return data_dict
 
