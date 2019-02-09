@@ -90,13 +90,13 @@ def write_fillable_pdf(input_pdf_path, output_pdf_path, data_dict):
 
 
 # Change everything to start in a dict as value 0 and just + on the stas as we go
-STR = 10
-DEX = 16
-CON = 10
-INT = 11
-WIS = 11
-CHA = 14
-charRace = "Dwarf(Hill)"
+STR = 18
+DEX = 15
+CON = 17
+INT = 13
+WIS = 14
+CHA = 17
+charRace = "Half-orc"
 charBackground = "Folk Hero"
 exp = 900
 
